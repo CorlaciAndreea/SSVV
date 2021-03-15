@@ -4,11 +4,11 @@ import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 public class TestApp {
     @Test
-    public void test1(){
+    public void TestCase1(){
         assertTrue(true);
     }
     @Test
-    public void test2(){
+    public void TestCase2(){
         assertFalse(false);
     }
 
