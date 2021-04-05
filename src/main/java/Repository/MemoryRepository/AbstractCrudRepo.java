@@ -30,6 +30,7 @@ public abstract class AbstractCrudRepo<ID,E extends HasId<ID>> implements Repo<I
     public Iterable<E> findAll(){
         return entityes.values();
     }
+
     @Override
     public E save(E entity) throws ValidatorException {
         if(entity==null){

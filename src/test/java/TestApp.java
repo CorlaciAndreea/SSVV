@@ -2,6 +2,7 @@ import Domain.Nota;
 import Domain.Student;
 import Domain.TemaLab;
 import Exceptions.ValidatorException;
+import Repository.MemoryRepository.TemaLabRepo;
 import Repository.XMLFileRepository.NotaXMLRepo;
 import Repository.XMLFileRepository.TemaLabXMLRepo;
 import Service.XMLFileService.AbstractXMLService;
@@ -28,6 +29,7 @@ public class TestApp {
     final NotaXMLRepo notaRepo = new NotaXMLRepo((NotaValidator) notaValidator, "test-nota.xml");
     final TemaLabXMLRepo temaRepo = new TemaLabXMLRepo((TemaLabValidator) temaValidator,"tema-test.xml");
     final AbstractXMLService service = new StudentXMLService(studentRepo);
+    final TemaLabRepo temaLabRepo = new TemaLabRepo(temaValidator);
     String maxString;
     String max_minusString;
     String max_plusString;
@@ -53,6 +55,92 @@ public class TestApp {
     @Test
     public void TestCase2() throws ValidatorException {
         tc18();tc19();tc20();tc21();tc22();tc23();tc24();tc25();tc26();tc27();tc28();tc29();tc30();tc31();tc32();tc33();
+    }
+
+    @Test
+    public void WBTTestCase1()  {
+        wbt1();wbt3();wbt4();wbt5();wbt6();
+
+    }
+
+    @Test
+    public void WBTTestCase2() {
+        wbt2();
+    }
+
+    @Test
+    public void wbt1(){
+        TemaLab temaLab = null;
+        int reposize = (int) temaLabRepo.size();
+        try{
+            temaLabRepo.save(temaLab);
+        } catch (IllegalArgumentException | ValidatorException e) {
+            //e.printStackTrace();
+        }
+        int reposize2 = (int) temaLabRepo.size();
+        TestCase.assertEquals(reposize,reposize2);
+    }
+    @Test
+    public void wbt2(){
+        TemaLab temaLab = new TemaLab(1, "lab1", 5,6);
+        int reposize = (int) temaLabRepo.size();
+        try{
+            temaLabRepo.save(temaLab);
+        } catch (IllegalArgumentException | ValidatorException e) {
+            e.printStackTrace();
+        }
+        int reposize2 = (int) temaLabRepo.size();
+        TestCase.assertEquals(reposize+1,reposize2);
+    }
+
+    @Test
+    public void wbt3(){
+        TemaLab temaLab = new TemaLab(null, "lab1", 5,6);
+        int reposize = (int) temaLabRepo.size();
+        try{
+            temaLabRepo.save(temaLab);
+        } catch (IllegalArgumentException | ValidatorException e) {
+            //e.printStackTrace();
+        }
+        int reposize2 = (int) temaLabRepo.size();
+        TestCase.assertEquals(reposize,reposize2);
+    }
+    @Test
+    public void wbt4(){
+        TemaLab temaLab = new TemaLab(2, null, 5,6);
+        int reposize = (int) temaLabRepo.size();
+        try{
+            temaLabRepo.save(temaLab);
+        } catch (IllegalArgumentException | ValidatorException e) {
+            //e.printStackTrace();
+        }
+        int reposize2 = (int) temaLabRepo.size();
+        TestCase.assertEquals(reposize,reposize2);
+    }
+    @Test
+    public void wbt5(){
+        TemaLab temaLab = new TemaLab(2, "lab2", -2,6);
+        int reposize = (int) temaLabRepo.size();
+        try{
+            temaLabRepo.save(temaLab);
+        } catch (IllegalArgumentException | ValidatorException e) {
+            //e.printStackTrace();
+        }
+        int reposize2 = (int) temaLabRepo.size();
+        TestCase.assertEquals(reposize,reposize2);
+    }
+
+    @Test
+    public void wbt6(){
+        TemaLab temaLab = new TemaLab(3, "lab2", 6,15);
+        int reposize = (int) temaLabRepo.size();
+        try{
+            temaLabRepo.save(temaLab);
+        } catch (IllegalArgumentException | ValidatorException e) {
+            e.printStackTrace();
+        }
+        int reposize2 = (int) temaLabRepo.size();
+        TestCase.assertEquals(reposize,reposize2);
     }
 
     @Test
