@@ -137,7 +137,7 @@ public class TestApp {
         try{
             temaLabRepo.save(temaLab);
         } catch (IllegalArgumentException | ValidatorException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         int reposize2 = (int) temaLabRepo.size();
         TestCase.assertEquals(reposize,reposize2);
