@@ -6,7 +6,9 @@ import Repository.MemoryRepository.TemaLabRepo;
 import Repository.XMLFileRepository.NotaXMLRepo;
 import Repository.XMLFileRepository.TemaLabXMLRepo;
 import Service.XMLFileService.AbstractXMLService;
+import Service.XMLFileService.NotaXMLService;
 import Service.XMLFileService.StudentXMLService;
+import Service.XMLFileService.TemaLabXMLService;
 import Validator.IValidator;
 import Validator.NotaValidator;
 import Validator.StudentValidator;
@@ -15,6 +17,7 @@ import Validator.TemaLabValidator;
 import junit.framework.TestCase;
 import org.junit.Test;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import static junit.framework.TestCase.assertFalse;
@@ -29,6 +32,8 @@ public class TestApp {
     final NotaXMLRepo notaRepo = new NotaXMLRepo((NotaValidator) notaValidator, "test-nota.xml");
     final TemaLabXMLRepo temaRepo = new TemaLabXMLRepo((TemaLabValidator) temaValidator,"tema-test.xml");
     final AbstractXMLService service = new StudentXMLService(studentRepo);
+    final AbstractXMLService temaService = new TemaLabXMLService(temaRepo);
+    final AbstractXMLService notaService = new NotaXMLService(notaRepo);
     final TemaLabRepo temaLabRepo = new TemaLabRepo(temaValidator);
     String maxString;
     String max_minusString;
@@ -60,12 +65,58 @@ public class TestApp {
     @Test
     public void WBTTestCase1()  {
         wbt1();wbt3();wbt4();wbt5();wbt6();
-
     }
 
     @Test
     public void WBTTestCase2() {
         wbt2();
+    }
+
+    @Test
+    public void IntegrationTestCase1() throws ValidatorException {
+        saveStudent_BigBang();
+        saveTema_BigBang();
+        saveNota_BigBang();
+    }
+
+    @Test
+    public void IntegrationTestCase2(){}
+
+    @Test
+    public void saveStudent_BigBang() throws ValidatorException {
+        int size1 = service.getSize();
+        String[] params={"3","bobo3","932","a@stud.com","Iulia"};
+        service.add(params);
+        int size2 = service.getSize();
+
+        TestCase.assertEquals(size1+1, size2);
+        service.remove(3);
+    }
+    @Test
+    public void saveTema_BigBang() throws ValidatorException {
+
+        int size1 = temaService.getSize();
+        String[] params={"2","lab bi2","10","10"};
+        temaService.add(params);
+        int size2 = temaService.getSize();
+
+        TestCase.assertEquals(size1+1, size2);
+        temaService.remove(2);
+
+    }
+
+    @Test
+    public void saveNota_BigBang() throws ValidatorException {
+
+        int size1 = notaService.getSize();
+        double nota = 8;
+        LocalDateTime dateTime = LocalDateTime.now();
+        String[] params={"1","3","2", String.valueOf(nota), String.valueOf(dateTime)};
+        notaService.add(params);
+        int size2 = notaService.getSize();
+
+        TestCase.assertEquals(size1+1, size2);
+        notaService.remove(1);
     }
 
     @Test
