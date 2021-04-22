@@ -126,7 +126,7 @@ public class TestApp {
         service.add(params);
         int size2 = service.getSize();
         TestCase.assertEquals(size1+1, size2);
-        service.remove("3");
+
 
         //SAVE TEMA
         int size3 = temaService.getSize();
@@ -134,7 +134,7 @@ public class TestApp {
         temaService.add(params1);
         int size4 = temaService.getSize();
         TestCase.assertEquals(size3+1, size4);
-        temaService.remove(2);
+
 
         //SAVE NOTA
         int size5 = notaService.getSize();
@@ -145,6 +145,9 @@ public class TestApp {
         int size6 = notaService.getSize();
 
         TestCase.assertEquals(size5+1, size6);
+
+        service.remove("3");
+        temaService.remove(2);
         notaService.remove(1);
 
     }
