@@ -80,7 +80,74 @@ public class TestApp {
     }
 
     @Test
-    public void IntegrationTestCase2(){}
+    public void IntegrationTestCase2() throws ValidatorException {
+        saveStudent_Increment();
+        saveTema_Increment();
+        saveNota_Increment();
+    }
+
+    @Test
+    public void saveStudent_Increment() throws ValidatorException {
+        int size1 = service.getSize();
+        String[] params={"3","bobo3","932","a@stud.com","Iulia"};
+        service.add(params);
+        int size2 = service.getSize();
+
+        TestCase.assertEquals(size1+1, size2);
+
+        service.remove("3");
+    }
+
+    @Test
+    public void saveTema_Increment() throws ValidatorException {
+        //SAVE STUDENT
+        int size1 = service.getSize();
+        String[] params={"3","bobo3","932","a@stud.com","Iulia"};
+        service.add(params);
+        int size2 = service.getSize();
+        TestCase.assertEquals(size1+1, size2);
+        service.remove("3");
+
+        //SAVE TEMA
+        int size3 = temaService.getSize();
+        String[] params1={"2","lab bi2","10","10"};
+        temaService.add(params1);
+        int size4 = temaService.getSize();
+        TestCase.assertEquals(size3+1, size4);
+        temaService.remove(2);
+
+    }
+
+    @Test
+    public void saveNota_Increment() throws ValidatorException {
+        //SAVE STUDENT
+        int size1 = service.getSize();
+        String[] params={"3","bobo3","932","a@stud.com","Iulia"};
+        service.add(params);
+        int size2 = service.getSize();
+        TestCase.assertEquals(size1+1, size2);
+        service.remove("3");
+
+        //SAVE TEMA
+        int size3 = temaService.getSize();
+        String[] params1={"2","lab bi2","10","10"};
+        temaService.add(params1);
+        int size4 = temaService.getSize();
+        TestCase.assertEquals(size3+1, size4);
+        temaService.remove(2);
+
+        //SAVE NOTA
+        int size5 = notaService.getSize();
+        double nota = 8;
+        LocalDateTime dateTime = LocalDateTime.now();
+        String[] params2={"1","3","2", String.valueOf(nota), String.valueOf(dateTime)};
+        notaService.add(params2);
+        int size6 = notaService.getSize();
+
+        TestCase.assertEquals(size5+1, size6);
+        notaService.remove(1);
+
+    }
 
     @Test
     public void saveStudent_BigBang() throws ValidatorException {

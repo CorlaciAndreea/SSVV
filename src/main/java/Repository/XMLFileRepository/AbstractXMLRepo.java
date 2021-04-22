@@ -89,8 +89,9 @@ public abstract class AbstractXMLRepo<ID,E extends HasId<ID>> extends AbstractCr
     @Override
     public E delete(ID id) {
         E stuff=super.delete(id);
-        if(stuff!=null)
+        if(stuff!=null){
             writeAll();
+        }
         return stuff;
     }
 
